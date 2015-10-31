@@ -7,7 +7,9 @@ module.exports={
 	attributes:{
 		ID:{
 			type:'integer',
-			columnName:'ID'
+			columnName:'ID',
+			autoIncrement:true,
+			primaryKey:true
 		},
 
 		UID:{
@@ -67,7 +69,8 @@ module.exports={
 
 		Enable:{
 			type:'string',
-			columnName:'Enable'
+			columnName:'Enable',
+			defaultsTo: 'Y'
 		},
 
 		CreatedBy:{
@@ -92,8 +95,9 @@ module.exports={
 	},
 
 	beforeCreate: function(user, cb) {
+		user.CreatedDate = new Date();
         bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(user.Password, salt, function(err, hash) {
+            bcrypt.hash(user.Password, salt,null, function(err, hash) {
                 if (err) {
                     console.log(err);
                     cb(err);

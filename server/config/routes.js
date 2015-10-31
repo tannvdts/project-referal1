@@ -34,7 +34,25 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+
+  'post /api/user-account/CreateUserAccount':{
+    controller:'UserAccountController',
+    action:'CreateUserAccount'
+  },
+
+  'post /api/user-account/login':{
+    controller:'AuthController',
+    action:'login'
+  },
+
+  'get /api/user-account/logout':{
+    controller:'AuthController',
+    action:'logout'
+  },
+
+
+
 
   /***************************************************************************
   *                                                                          *
