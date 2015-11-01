@@ -36,6 +36,13 @@ module.exports.bootstrap = function(cb) {
 		else
 			return [];
 	}
+
+	if (typeof String.prototype.startsWith != 'function') {
+		// see below for better implementation!
+		String.prototype.startsWith = function (str){
+			return this.indexOf(str) === 0;
+		};
+	}
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

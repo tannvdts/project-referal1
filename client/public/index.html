@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+    
+    <div ng-app="myApp" ng-controller="appCtrl">
+        <p>Create User</p>
+        <form method="POST" action="http://localhost:3000/createUser">
+            UserName: <input type="text" name="UserName"><br>
+            UID: <input type="text" name="UID"><br>
+            Password: <input type="password" name="Password"><br>
+            PasswordSalt: <input type="password" name="PasswordSalt"><br>
+            PhoneNumber: <input type="text" name="PhoneNumber"><br>
+            Role:
+            <select name="role" >
+                <option value="admin">admin</option>
+                <option value="assistant">assistant</option>    
+                <option value="gp">gp</option>    
+            </select><br>
+            <input type="submit" value="Create Users">
+        </form>
+        <hr/>
+        <div>
+            UserName: <input type="text" ng-model="UserName" ng-disabled="loggedIn"><br>
+            Password: <input type="text" ng-model="Password" ng-disabled="loggedIn"><br>
+            <button ng-click="login();" >Login</button>
+            <button ng-click="logout();" ng-show="loggedIn">Logout</button>
+        </div>
+        <hr/>
+        <form action="http://localhost:1337/file/upload" enctype="multipart/form-data" method="post">
+            <input type="text" name="title"><br>
+            <input type="file" name="avatar" multiple="multiple"><br>
+            <input type="submit" value="Upload">
+        </form>
+     	<hr/>
+        <button ng-click="testAuthenticated();">Test Authenticated</button>
+
+    </div>
+    
+    <!-- LOAD SCRIPT -->
+    <script src="lib/angular.min.js"></script>
+	<script src="lib/angular-cookies.min.js"></script>
+	<script src="app.js"></script>
+	<script src="src/appCtrl.js"></script>
+
+</body>
+</html>

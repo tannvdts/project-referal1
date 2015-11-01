@@ -99,7 +99,11 @@ module.exports = {
     checkData: checkData,
     checkListData: checkListData,
     const: {
-     
+        userType:{
+            admin:'ADMIN',
+            product:'PRODUCT',
+            user:'USER',
+        },
 
     },
     exlog: exlog,

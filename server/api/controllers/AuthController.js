@@ -41,7 +41,8 @@ module.exports = {
                 else
                 {
                     //tạo token
-                    var token = jwt.sign(user, secret, { expiresIn:24*60*60});
+                    // var token = jwt.sign(user, secret, { expiresIn:24*60*60}); //expiresIn (seconds)
+                    var token = jwt.sign(user, secret, { expiresIn: 5 * 60}); //expiresIn (seconds)
                     res.ok({
                         status:'success',
                         message: info.message,

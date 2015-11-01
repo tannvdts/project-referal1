@@ -26,7 +26,22 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': 'isAuthenticated',
+
+  'AuthController': {
+      '*':true,
+      'logout':['isAuthenticated']
+  },
+
+  'UserAccountController':{
+    'CreateUserAccount':true,
+  },
+
+  'TestController':{
+    'TestGet':['isAuthenticated'],
+  }
+
+
 
   /***************************************************************************
   *                                                                          *
