@@ -107,5 +107,11 @@ module.exports={
                 }
             });
         });
+    },
+
+    beforeUpdate:function(user,cb)
+    {
+    	user.ModifiedDate=new Date();
+    	cb();
     }
 }

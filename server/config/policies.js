@@ -39,8 +39,12 @@ module.exports.policies = {
 
   'TestController':{
     'TestGet':['isAuthenticated'],
-  }
+  },
 
+  'ImageController':{
+    '*':true,
+    // 'ImageUpload':true
+  }
 
 
   /***************************************************************************

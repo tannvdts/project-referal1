@@ -26,8 +26,8 @@
             <button ng-click="logout();" ng-show="loggedIn">Logout</button>
         </div>
         <hr/>
-        <form action="http://localhost:1337/file/upload" enctype="multipart/form-data" method="post">
-            <input type="text" name="title"><br>
+        <form action="http://localhost:1337/api/image/ImageUpload" enctype="multipart/form-data" method="post">
+            <input type="text" name="Description"><br>
             <input type="file" name="avatar" multiple="multiple"><br>
             <input type="submit" value="Upload">
         </form>

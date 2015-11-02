@@ -105,6 +105,8 @@ module.exports = {
             user:'USER',
         },
 
+        imageLocation:'/assets/images',
+
     },
     exlog: exlog,
     exFileJSON: exFileJSON,
