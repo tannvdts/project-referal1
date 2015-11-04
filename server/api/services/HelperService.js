@@ -54,6 +54,7 @@ function exFileJSON(data, fileName) {
         console.log(err);
     })
 }
+
 module.exports = {
     //define regex pattern
     regexPattern: {
@@ -98,6 +99,12 @@ module.exports = {
     },
     checkData: checkData,
     checkListData: checkListData,
+
+    getImgPathRefix:function()
+    {
+        return sails.config.appPath;
+    },
+
     const: {
         userType:{
             admin:'ADMIN',
@@ -105,7 +112,7 @@ module.exports = {
             user:'USER',
         },
 
-        imageLocation:'/assets/images',
+        imgLocation:'/assets/images',
 
     },
     exlog: exlog,

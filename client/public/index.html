@@ -26,12 +26,21 @@
             <button ng-click="logout();" ng-show="loggedIn">Logout</button>
         </div>
         <hr/>
-        <form action="http://localhost:1337/api/image/ImageUpload" enctype="multipart/form-data" method="post">
+        <form action="http://localhost:1337/api/image/ImagesUpload" enctype="multipart/form-data" method="post">
             <input type="text" name="Description"><br>
             <input type="file" name="avatar" multiple="multiple"><br>
             <input type="submit" value="Upload">
         </form>
      	<hr/>
+
+        <form action="http://localhost:1337/api/image/ImageUpload" enctype="multipart/form-data" method="post">
+            <input type="text" name="FileNameAs"><br>
+            <input type="text" name="Description"><br>
+            <input type="file" name="avatar"><br>
+            <input type="submit" value="Upload">
+        </form>
+        <hr/>
+
         <button ng-click="testAuthenticated();">Test Authenticated</button>
 
     </div>

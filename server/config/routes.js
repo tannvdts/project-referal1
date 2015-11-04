@@ -56,12 +56,21 @@ module.exports.routes = {
     action:'TestGet'
   },
 
+  'post /api/image/ImagesUpload':{
+    controller:'ImageController',
+    action:'ImagesUpload'
+  },
+
   'post /api/image/ImageUpload':{
     controller:'ImageController',
     action:'ImageUpload'
   },
 
-
+  'get /api/image/DownloadImage':{
+    controller:'ImageController',
+    action:'DownloadImage'
+  },
+  
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
