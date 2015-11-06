@@ -35,6 +35,7 @@ module.exports.policies = {
 
   'UserAccountController':{
     'CreateUserAccount':true,
+    'GetListUsers':true,
   },
 
   'TestController':{

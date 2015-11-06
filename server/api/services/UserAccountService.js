@@ -1,5 +1,6 @@
 var $q=require("q");
 var o=require("./HelperService");
+var moment=require("moment");
 module.exports={
 	CreateUserAccount:function(userInfo,transaction)
 	{
@@ -44,6 +45,42 @@ module.exports={
 					error.pushError("Password.notProvided");
 				}
 
+				if(o.checkData(userInfo.Email) && !o.isValidEmail(userInfo.Email))
+				{
+					error.pushError("Email.invalid");
+				}
+
+				if(o.checkData(userInfo.UserType) && o.getUserTypes().indexOf(userInfo.UserType)<0)
+				{
+					error.pushError("UserType.invalid");
+				}
+
+				if(o.checkData(userInfo.Enable) && ['Y','N'].indexOf(userInfo.Enable)<0)
+				{
+					error.pushError("Enable.invalid");
+				}
+
+				if(o.checkData(userInfo.DOB))
+				{
+					if(moment(userInfo.DOB,'DD-MM-YYYY').isValid())
+					{
+						userInfo.DOB=moment(userInfo.DOB,"DD-MM-YYYY").toDate();
+					}
+					else
+					{
+						error.pushError("DOB.invalid");
+					}
+				}
+
+				if(o.checkData(userInfo.PhoneNumber))
+				{
+					userInfo.PhoneNumber=o.parsePhoneNumber(userInfo.PhoneNumber);
+					if(!o.checkData(userInfo.PhoneNumber))
+					{
+						error.pushError("PhoneNumber.invalid");
+					}
+				}
+
 				if(error.getErrors().length>0)
 				{
 					throw error;
@@ -68,6 +105,7 @@ module.exports={
 				return user;
 			})
 			.catch(function(err){
+				console.log(err);
 				error.pushError("UserAccount.createError");
 				throw error;
 			})
@@ -76,5 +114,108 @@ module.exports={
 			throw err;
 		})
 
+	},
+
+	GetListUsers:function(criteria)
+	{
+		var error=new Error("GetListUsers.Error");
+		var whereClause={};
+		function Validation()
+		{
+			var q=$q.defer();
+			try
+			{
+				var objValidation={
+					UserName:null,
+					Email:null,
+					FirstName:null,
+					LastName:null,
+					Gender:null,
+					DOB:null,
+					PhoneNumber:null,
+					Address:null,
+					UserType:null,
+					Enable:null,
+				}
+				criteria=o.rationalizeObject(criteria,objValidation);
+
+				if(o.checkData(criteria.UserName))
+				{
+					whereClause.UserName={'contains':criteria.UserName};
+				}
+
+				if(o.checkData(criteria.Email))
+				{
+					whereClause.Email={'contains':criteria.Email};
+				}
+
+				if(o.checkData(criteria.FirstName))
+				{
+					whereClause.FirstName={'contains':criteria.FirstName};
+				}
+
+				if(o.checkData(criteria.LastName))
+				{
+					whereClause.LastName={'contains':criteria.LastName};
+				}
+
+				if(o.checkData(criteria.Gender))
+				{
+					whereClause.Gender=criteria.Gender;
+				}
+
+				if(o.checkData(criteria.DOB))
+				{
+					var dobm=moment(criteria.DOB,'DD-MM-YYYY ZZ');
+					var nextdobm=dobm.clone().add(1,'days');
+					console.log(dobm.format("DD-MM-YYYY HH:mm:ss"));
+					console.log(nextdobm.format("DD-MM-YYYY HH:mm:ss"));
+					whereClause.DOB={
+						'>=':dobm.toDate(),
+						'<':nextdobm.toDate()
+					}
+				}
+
+				if(o.checkData(criteria.PhoneNumber))
+				{
+					whereClause.PhoneNumber={'contains':criteria.PhoneNumber};
+				}
+
+				if(o.checkData(criteria.Address))
+				{
+					whereClause.Address={'contains':criteria.Address};
+				}
+
+				if(o.checkData(criteria.UserType))
+				{
+					whereClause.UserType=criteria.UserType;
+				}
+
+				if(o.checkData(criteria.Enable))
+				{
+					whereClause.Enable=criteria.Enable;
+				}
+
+				q.resolve({status:'success'});
+
+			}
+			catch(err)
+			{
+				q.reject(err);
+			}
+			return q.promise;
+		}
+
+		return Validation()
+		.then(function(data){
+			return UserAccount.find(whereClause)
+			.then(function(users){
+				return users;
+			},function(err){
+				error.pushError("UserAccount.queryError");
+			})
+		},function(err){
+			throw err;
+		})
 	}
 }

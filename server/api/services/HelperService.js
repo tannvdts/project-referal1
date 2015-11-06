@@ -115,6 +115,12 @@ module.exports = {
         imgLocation:'/assets/images',
 
     },
+
+    getUserTypes:function()
+    {
+        return _.values(this.const.userType);
+    },
+
     exlog: exlog,
     exFileJSON: exFileJSON,
     /**
@@ -228,6 +234,18 @@ module.exports = {
         } else {
             PhoneNumber = PhoneNumber.slice(-9);
             PhoneNumber = '+61' + PhoneNumber;
+            return PhoneNumber;
+        }
+    },
+
+    parsePhoneNumber:function(PhoneNumber)
+    {
+        if (!checkData(PhoneNumber)) return null;
+        var phoneNumberPattern = new RegExp(this.regexPattern.fullPhoneNumber);
+        PhoneNumber = PhoneNumber.replace(this.regexPattern.phoneExceptChars, '');
+        if (!phoneNumberPattern.test(PhoneNumber)) {
+            return null;
+        } else {
             return PhoneNumber;
         }
     },

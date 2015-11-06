@@ -21,6 +21,11 @@ module.exports = {
 			columnName:'UID'
 		},
 
+		UserAccountID:{
+			type:'integer',
+			columnName:'UserAccountID'
+		},
+
 		FileName:{
 			type:'string',
 			columnName:'FileName'

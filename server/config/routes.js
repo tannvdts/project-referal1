@@ -41,6 +41,11 @@ module.exports.routes = {
     action:'CreateUserAccount'
   },
 
+  'get /api/user-account/GetListUsers':{
+    controller:'UserAccountController',
+    action:'GetListUsers'
+  },
+
   'post /api/auth/login':{
     controller:'AuthController',
     action:'login'
