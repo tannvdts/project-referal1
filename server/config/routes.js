@@ -46,6 +46,16 @@ module.exports.routes = {
     action:'GetListUsers'
   },
 
+  'get /api/user-account/GetUserDetails':{
+    controller:'UserAccountController',
+    action:'GetUserDetails'
+  },
+
+  'get /api/user-account/GetUserDetailsWithImages':{
+    controller:'UserAccountController',
+    action:'GetUserDetailsWithImages'
+  },
+  
   'post /api/auth/login':{
     controller:'AuthController',
     action:'login'
@@ -76,6 +86,7 @@ module.exports.routes = {
     action:'DownloadImage'
   },
   
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

@@ -8,8 +8,16 @@ module.exports={
 
 	TestGet:function(req,res)
 	{		
-		console.log(sails.config.appPath);
-		console.log(require('path').resolve(sails.config.appPath, '/assets/images'))
-		res.ok({status:'success'});
+		// console.log(sails.config.appPath);
+		// console.log(require('path').resolve(sails.config.appPath, '/assets/images'))
+		// Image.find({ID:1})
+		// // .populate('images')
+		// // .populate('user')
+		// .then(function(data){
+		// 	res.ok(data,test);
+		// },function(err){
+		// 	res.serverError(err);
+		// })
+		res.ok({status:sails.config.myconfig});
 	}
 }

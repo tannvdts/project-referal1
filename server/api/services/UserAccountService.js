@@ -217,5 +217,112 @@ module.exports={
 		},function(err){
 			throw err;
 		})
+	},
+
+	GetUserDetails:function(criteria)
+	{
+		var error=new Error("GetUserDetails.Error");
+		var whereClause={};
+		function Validation()
+		{
+			var q=$q.defer();
+			
+			try
+			{
+				if(o.checkData(criteria.ID)){
+					whereClause.ID=criteria.ID;
+				}
+				else if(o.checkData(criteria.UID))
+				{
+					whereClause.UID=criteria.UID;
+				}
+				else
+				{
+					error.pushError("Params.notProvided");
+				}
+				if(error.getErrors().length>0)
+				{
+					throw error;
+				}
+				else
+				{
+					q.resolve({status:'success'});
+				}
+			}
+			catch(err)
+			{
+				q.reject(err);
+			}
+			return q.promise;
+		}
+		console.log(">>>>>>>>>>>>>>>>>>>>>",whereClause);
+		return Validation()
+		.then(function(data){
+			return UserAccount.findOne()
+			.where(whereClause)
+			.then(function(user){
+				console.log(user);
+				return user;
+			},function(err){
+				console.log(err);
+				error.pushError("userAccount.queryError");
+				throw error;
+			})
+		},function(err){
+			throw err;
+		});
+	},
+
+	GetUserDetailsWithImages:function(criteria)
+	{
+		var error=new Error("GetUserDetails.Error");
+		var whereClause={};
+		function Validation()
+		{
+			var q=$q.defer();
+			
+			try
+			{
+				if(o.checkData(criteria.ID)){
+					whereClause.ID=criteria.ID;
+				}
+				else if(o.checkData(criteria.UID))
+				{
+					whereClause.UID=criteria.UID;
+				}
+				else
+				{
+					error.pushError("Params.notProvided");
+				}
+				if(error.getErrors().length>0)
+				{
+					throw error;
+				}
+				else
+				{
+					q.resolve({status:'success'});
+				}
+			}
+			catch(err)
+			{
+				q.reject(err);
+			}
+			return q.promise;
+		}
+		return Validation()
+		.then(function(data){
+			return UserAccount.findOne()
+			.populate('images')
+			.where(whereClause)
+			.then(function(user){
+				return user;
+			},function(err){
+				console.log(err);
+				error.pushError("userAccount.queryError");
+				throw error;
+			})
+		},function(err){
+			throw err;
+		});
 	}
 }

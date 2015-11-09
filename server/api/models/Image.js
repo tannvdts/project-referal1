@@ -65,6 +65,11 @@ module.exports = {
 			type:'datetime',
 			columnName:'ModifiedDate'
 		},
+
+		user:{
+			model:'UserAccount',
+			columnName:'UserAccountID'
+		},
 	},
 
 	beforeCreate: function(image, cb) {

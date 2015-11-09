@@ -17,11 +17,29 @@ module.exports = {
 
 	ImagesUpload:function(req,res)
 	{
+		var postData=req.body;
+		var fileDetails={};
 		req.file('avatar').upload({
-			dirname: path.join(o.getImgPathRefix(),'/assets/images')
+			dirname: path.join(o.getImgPathRefix(),'/assets/images'),
+			maxBytes:o.const.maxImageSize,
 		},function (err, uploadedFiles) {
 			if (err) return res.serverError(err);
-			ImageService.SaveImages(uploadedFiles,{Description:req.body.Description})
+			if(!o.isValidImagesType(uploadedFiles))
+			{
+				var error=new Error("ImagesUpload.Error");
+				error.pushError("image.invalidType");
+				error.pushError({onlyAccept:o.const.allowTypes});
+				return res.badRequest(ErrorWrap(error));
+			}
+			//console.log(uploadedFiles)
+			if(o.checkData(postData.UserAccountID))
+				fileDetails.UserAccountID=postData.UserAccountID;
+			else if(o.checkData(req.user))
+			{
+				fileDetails.UserAccountID=req.user.ID;
+			}
+			fileDetails.Description=postData.Description;
+			ImageService.SaveImages(uploadedFiles,fileDetails)
 			.then(function(data){
 				return res.ok(data);
 			},function(err){
@@ -32,11 +50,30 @@ module.exports = {
 
 	ImageUpload:function(req,res)
 	{
+		var postData=req.body;
+		var fileDetails={};
 		req.file('avatar').upload({
-			dirname: path.join(o.getImgPathRefix(),'/assets/images')
-		},function (err, uploadedFiles) {
+			dirname: path.join(o.getImgPathRefix(),'/assets/images'),
+			maxBytes:o.const.maxImageSize,
+		},function (err, uploadedFiles) {			
 			if (err) return res.serverError(err);
-			ImageService.SaveImage(uploadedFiles[0],{Description:req.body.Description,FileNameAs:req.body.FileNameAs})
+			if(!o.isValidImagesType(uploadedFiles))
+			{
+				var error=new Error("ImageUpload.Error");
+				error.pushError("image.invalidType");
+				error.pushError({onlyAccept:o.const.allowTypes});
+				return res.badRequest(ErrorWrap(error));
+			}
+			// console.log(uploadedFiles)
+			if(o.checkData(postData.UserAccountID))
+				fileDetails.UserAccountID=postData.UserAccountID;
+			else if(o.checkData(req.user))
+			{
+				fileDetails.UserAccountID=req.user.ID;
+			}
+			fileDetails.Description=postData.Description;
+			fileDetails.FileNameAs=postData.FileNameAs;
+			ImageService.SaveImage(uploadedFiles[0],fileDetails)
 			.then(function(data){
 				return res.ok(data);
 			},function(err){

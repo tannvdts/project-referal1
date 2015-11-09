@@ -114,6 +114,28 @@ module.exports = {
 
         imgLocation:'/assets/images',
 
+        maxImageSize:1*1024*1024,//bytes
+
+        // allowTypes:true,
+        allowTypes:['image/jpeg', 'image/png', 'image/gif']
+
+    },
+
+    isValidImagesType:function(images)
+    {
+        var returnValue=true;
+        if(this.const.allowTypes!==true)
+        {
+            for(var i=0;i<images.length;i++)
+            {
+                if(this.const.allowTypes.indexOf(images[i].type)<0)
+                {
+                    returnValue=false;
+                    break;
+                }
+            }
+        }
+        return returnValue;        
     },
 
     getUserTypes:function()

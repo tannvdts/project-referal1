@@ -44,6 +44,7 @@ module.exports={
 				image.FileLocation=path.join(o.const.imgLocation,actualFileName);
 				//------------------------
 				image.Description=info.Description;
+				image.UserAccountID=info.UserAccountID||null;
 				inserts.push(image);
 			}
 			return Image.create(inserts)
@@ -61,6 +62,8 @@ module.exports={
 
 	SaveImage:function(image,info)
 	{
+		console.log(">>>>>>>>>>>>>>>>>>>")
+		console.log(info);
 		var error=new Error("SaveImage.Error");
 		function Validation()
 		{
@@ -95,7 +98,8 @@ module.exports={
 			var actualFileName=fdPart[fdPart.length-1];
 			insert.FileLocation=path.join(o.const.imgLocation,actualFileName);
 			//------------------------
-			image.Description=info.Description;
+			insert.Description=info.Description;
+			insert.UserAccountID=info.UserAccountID||null;
 			return Image.create(insert)
 			.then(function(data){
 				return data;

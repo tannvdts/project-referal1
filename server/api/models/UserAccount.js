@@ -91,7 +91,12 @@ module.exports={
 		ModifiedDate:{
 			type:'datetime',
 			columnName:'ModifiedDate'
-		}
+		},
+
+		images:{
+			collection:'Image',
+			via:'user'
+		},
 	},
 
 	beforeCreate: function(user, cb) {

@@ -1,12 +1,11 @@
 
-//ENV=true neu trong qua trinh phat trien, muc dich respose day du chi tiet loi
-//ENV=false neu release
-var ENV=true;
+//sails.config.myconfig.errorWrap='ENV' neu trong qua trinh phat trien, muc dich respose day du chi tiet loi
+//sails.config.myconfig.errorWrap='PRO' neu release
 
 module.exports=function(err)
 {
 	var returnObj={};
-	if(ENV)
+	if(sails.config.myconfig.errorWrap=='ENV')
 	{
 		//Kiem tra co phai kieu Error khong, neu la kieu Error thi tra ve stack error
 		if(err)
