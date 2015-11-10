@@ -1,0 +1,97 @@
+﻿TRONG THƯ MỤC PROJECT SERVER: ../project-referal1/server
+
+1. Folder /config
+	Chứa các config của dự án
+	Chúng ta quan tâm các file sau:
+	
+	CONFIG PORT: config/env/development.js->port
+	
+	a. bootstrap.js
+		Chứa các lệnh chúng ta muốn chạy sau khi start project thành công
+		Trong project này, file bootstrap.js chứa lệnh overide class Error
+		
+	b. connection.js	
+		Chứa kết nối database
+		
+	c. cors.js
+		Đây là config quan trọng, nó xử lý vấn đề về  Cross-Origin Resource Sharing
+		- origin: 'http://localhost:3000',//quy định tên miền nào có thể kết nối với server
+			Ví dụ origin="http://abc.com.vn, http://xyz.com.vn" thì chỉ có 2 host này có thể gọi api của server
+		- allRoutes: true //nếu tên miền được cấp phép thì tên miền đó có thể truy cập vào toàn bộ của server
+		- credentials: true, // cho phép cookies có thể được gửi kèm theo request, khi request được tạo từ một domain khác
+		- methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD', // Các methods cho phép
+		- headers: 'content-type, authorization', //client có thể đính kèm trong http request headers những field này
+		- securityLevel:1 , //level 1: những tên miền không được quy định trong origin thì không được request api, nhưng
+			các chương trình như postman thì có thể; level 2: giống level 1 nhưng ngay cả postman cũng không thể request api
+
+		Tham khảo đầy đủ chi tiết tại: 
+			http://sailsjs.org/documentation/anatomy/my-app/config/cors-js
+			http://sailsjs.org/documentation/reference/configuration/sails-config-cors
+			http://sailsjs.org/documentation/concepts/security/cors
+	
+	d. http.js
+		Các lệnh trong đây sẽ chạy khi mỗi request được gửi lên
+	
+	e. model.js
+		Chứ config cho ORM, ORM hiện tại sử dụng trong project là Waterline, 
+		Waterline là một framework mapping database thành đối tượng, được tích hợp vào trong sails-config-cors
+	
+	f. myconfig.js
+		Đây là config riêng, tự tạo của project
+			errorWrap:'PRO'/'ENV'
+		Nếu set bằng 'PRO' (production) thì lỗi trả về client sẽ không in stack error(vị trí lỗi cụ thể)
+		Nếu set bằng 'ENV' (envelopment) thì lỗi trả về client sẽ bao gồm cả stack error
+	
+	g. passport.js
+		Dự án login bằng passport
+		kiểm tra authentication bằng passport + token (JWT- JsonWebToken)
+	
+	h. policies.js
+		Phần này config cho Authorization
+		Quy định ai được quyền truy cập vào api
+		policies được viết trong ..server/api/policies và được config trong ..server/config/policies.js
+		Ví dụ:
+			module.exports.policies = {
+			
+				'*': 'isAuthenticated', //tất cả các api mặc định đều kiểm tra phải login thì mới được vào api đó
+
+				//Tuy nhiên tại mỗi controller thì có thể quy định riêng, như controller AuthController dưới đây
+				//Tất cả các api trong AuthController đều không cần policies, nhưng api logout thì cần policies isAuthenticated (kiểm tra đã login)
+				'AuthController': {
+				  '*':true,
+				  'logout':['isAuthenticated']
+				},
+
+				//Theo mặc định như trên thì tất cả các policies đều cần isAuthenticated, trong UserAccountController cũng vậy
+				//tuy nhiên CreateUserAccount thì không cần policies:
+				'UserAccountController':{
+				'CreateUserAccount':true,
+				},
+				
+				//Tất cả các api trong ImageController đều không cần policies
+				'ImageController':{
+				'*':true,
+				}
+			};
+		
+		Chi tiết tham khảo tại:
+			http://sailsjs.org/documentation/anatomy/my-app/config/policies-js
+			http://sailsjs.org/documentation/reference/configuration/sails-config-policies
+			http://sailsjs.org/documentation/concepts/policies	
+		
+	i. routes.js
+		Định nghĩa URL, http method cho từng api
+		Ví dụ:
+		api /api/test/TestGet phải được gửi theo method get, hàm xử lý cho api là TestGet nằm trong controller TestController
+		'get /api/test/TestGet':{
+			controller:'TestController',
+			action:'TestGet'
+		},
+		
+		api /api/image/ImagesUpload phải được gửi lên theo method post, hàm xử lý cho api là ImagesUpload nằm trong controller ImageController
+		'post /api/image/ImagesUpload':{
+		controller:'ImageController',
+			action:'ImagesUpload'
+		},
+	
+	

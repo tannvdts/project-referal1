@@ -1,0 +1,32 @@
+﻿1. ../server/api/controllers
+	-Chứa các function mapping với các api url
+	Phần mapping giữ function trong controllers và api url được 
+	quy định trong config/routes.js
+	Ví dụ:
+		'get /api/test/TestGet':{
+			controller:'TestController',
+			action:'TestGet'
+		},
+		
+2. ../server/api/models
+	Đây là phần mapping của ORM Waterline, map các bảng của database
+	thành các object
+
+3.	../server/api/policies
+	Đây là nơi định nghĩa các policies
+	Policies là các hàm kiểm tra sẽ chạy trước khi chạy các hàm trong controller
+	Hàm trong controller tương ứng với policies nào được quy định trong
+	config/policies.js
+	
+4. ../server/api/response
+	Định nghĩa các phương thức response
+	ví dụ trong response folder có ok.js, serverError.js, notFound.js
+	thì tại function trong controller có thể gọi res.ok(data),res.serverError(error)... 
+	mà không cần phải viết dài dòng như res.json(200,{data}),res.json(500,{error})
+	
+5. ../server/api/services
+	Là lớp thực hiện các hành động CRUD (create,read,update,delete) với db
+	ĐÂY CHÍNH LÀ NƠI CHỨA CODE XỬ LÝ CHÍNH CỦA SERVER
+	CONTROLLER CHỈ LÀ NƠI GỌI SERVICE CHẠY VÀ TRẢ KẾT QUẢ VỀ CLIENT
+	
+	

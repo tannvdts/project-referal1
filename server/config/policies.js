@@ -35,6 +35,9 @@ module.exports.policies = {
 
   'UserAccountController':{
     'CreateUserAccount':true,
+    'GetListUsers':['isAuthenticated'],
+    'GetUserDetails':['isAuthenticated'],
+    'GetUserDetailsWithImages':['isAuthenticated']
   },
 
   'TestController':{
@@ -43,6 +46,7 @@ module.exports.policies = {
 
   'ImageController':{
     '*':true,
+    'GetImagesOfUser':['isAuthenticated']
     // 'ImageUpload':true
   }
 

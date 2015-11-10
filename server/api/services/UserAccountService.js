@@ -2,7 +2,16 @@ var $q=require("q");
 var o=require("./HelperService");
 var moment=require("moment");
 module.exports={
-	CreateUserAccount:function(userInfo,transaction)
+
+	/**
+	 * CreateUserAccount: tạo thông tin user
+	 * Input: 
+	 * 	- userInfo
+	 * Output:
+	 * 	- nếu tạo thành công trả về thông tin user vừa được tạo
+	 * 	- nếu tạo thất bại thì throw về lỗi
+	 */
+	CreateUserAccount:function(userInfo)
 	{
 		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>")
 		var error=new Error("CreateUserAccount.Error");
@@ -116,6 +125,17 @@ module.exports={
 
 	},
 
+	/**
+	 * GetListUsers: lấy danh sách user theo điều kiện, 
+	 * nếu điều kiện trống thì trả về toàn bộ users
+	 * input: 
+	 * 	-criteria: là 1 json trong đó key là tên field và value là giá trị cần filter
+	 * 		các field hổ trợ filter bao gồm:
+	 * 			UserName,Email,FirstName,LastName,Gender,DOB,PhoneNumber,Address,UserType,Enable
+	 * output:
+	 * 	-nếu thành công trả về danh sách user
+	 * 	-nếu thất bại throw về error
+	 */
 	GetListUsers:function(criteria)
 	{
 		var error=new Error("GetListUsers.Error");
@@ -219,6 +239,14 @@ module.exports={
 		})
 	},
 
+	/**
+	 * GetUserDetails: lấy thông tin user thông qua ID hoặc UID của user đó
+	 * Input: 
+	 * 	- criteria:{ID hoặc UID}
+	 * Output:
+	 * 	- nếu thành công trả về user info
+	 * 	- nếu thất bại quăng về error
+	 */
 	GetUserDetails:function(criteria)
 	{
 		var error=new Error("GetUserDetails.Error");
@@ -273,6 +301,14 @@ module.exports={
 		});
 	},
 
+	/**
+	 * GetUserDetails: lấy thông tin user và image của user đó thông qua ID hoặc UID của user đó
+	 * Input: 
+	 * 	- criteria:{ID hoặc UID}
+	 * Output:
+	 * 	- nếu thành công trả về user info+image của user đó
+	 * 	- nếu thất bại quăng về error
+	 */
 	GetUserDetailsWithImages:function(criteria)
 	{
 		var error=new Error("GetUserDetails.Error");

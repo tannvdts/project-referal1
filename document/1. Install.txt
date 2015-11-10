@@ -1,0 +1,17 @@
+﻿PROJECT SỬ DỤNG FRAMEWORK SAILS+PASSPORT+JWT
+
+1. Cài nodejs
+	Khuyến cáo sử dụng bảng 0.12.7 https://nodejs.org/en/blog/release/v0.12.7/
+	
+2. Cài sails (http://sailsjs.org/get-started)
+	Mở terminal (cmd) gõ:
+		npm -g install sails
+
+3. Tại thư mục ../project-referal1/server gõ
+	npm install
+	để tải các thư viện về (các thư viện sau đó sẽ được lưu trong ../project-referal1/server/node-modules)
+
+4. Sau khi cài đặt các thư viện thành công
+	Tại ../project-referal1/server gõ
+	sails lift
+	để chạy projects (project hiện tại đang chạy ở port 1337, có thể config trở lại, hướng dẫn ở file mot_so_config_quan_trong.txt)	
