@@ -109,6 +109,18 @@ module.exports = {
 		},function(err){
 			res.serverError(ErrorWrap(err));
 		});
+	},
+
+	GetImagesOfUser:function(req,res)
+	{
+		var criteria=req.query;
+		console.log(criteria);
+		ImageService.GetImagesOfUser(criteria)
+		.then(function(images){
+			res.ok(images);
+		},function(err){
+			res.serverError(ErrorWrap(err));
+		})
 	}
 };
 

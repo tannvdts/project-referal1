@@ -164,5 +164,65 @@ module.exports={
 		},function(err){
 			throw err;
 		})
+	},
+
+	GetImagesOfUser:function(criteria)
+	{
+		var error=new Error("GetImagesOfUser.Error");
+		var whereClause={};
+		function Validation()
+		{
+			var q=$q.defer();
+			
+			try
+			{
+				if(o.checkData(criteria.UserID)){
+					whereClause.ID=criteria.UserID;
+				}
+				else if(o.checkData(criteria.UserUID))
+				{
+					whereClause.UID=criteria.UserUID;
+				}
+				else
+				{
+					error.pushError("Params.notProvided");
+				}
+				if(error.getErrors().length>0)
+				{
+					throw error;
+				}
+				else
+				{
+					q.resolve({status:'success'});
+				}
+			}
+			catch(err)
+			{
+				q.reject(err);
+			}
+			return q.promise;
+		}
+		return Validation()
+		.then(function(data){
+			return UserAccount.findOne()
+			.populate('images')
+			.where(whereClause)
+			.then(function(user){
+				if(o.checkData(user))
+				{
+					return user.images;
+				}
+				else
+				{
+					return [];
+				}
+			},function(err){
+				console.log(err);
+				error.pushError("images.queryError");
+				throw error;
+			})
+		},function(err){
+			throw err;
+		});
 	}
 }

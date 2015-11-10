@@ -86,6 +86,10 @@ module.exports.routes = {
     action:'DownloadImage'
   },
   
+  'get /api/image/GetImagesOfUser':{
+    controller:'ImageController',
+    action:'GetImagesOfUser'
+  },
 
   /***************************************************************************
   *                                                                          *
