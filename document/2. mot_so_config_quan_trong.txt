@@ -1,10 +1,15 @@
 ﻿TRONG THƯ MỤC PROJECT SERVER: ../project-referal1/server
 
+================================================================================
+CONFIG PORT: config/env/development.js->port
+KHI DÙNG AJAX ĐỂ GỌI API THÌ CẦN SET withCredentials=true trong http request
+ĐỐI VỚI NHỮNG API CHỈ ĐƯỢC CHẠY SAU KHI LOGIN (policy isAuthenticated) THÌ CẦN
+SET authorization='Bearer '+TOKEN vào http request header
+================================================================================
+
 1. Folder /config
 	Chứa các config của dự án
 	Chúng ta quan tâm các file sau:
-	
-	CONFIG PORT: config/env/development.js->port
 	
 	a. bootstrap.js
 		Chứa các lệnh chúng ta muốn chạy sau khi start project thành công
